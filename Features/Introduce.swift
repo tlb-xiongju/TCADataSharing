@@ -60,6 +60,10 @@ struct Introduce {
         state.$numberDescription = SharedReader(.api(number))
         return .none
         
+      case .confirmation(.presented(.saveNote)):
+        state.confirmation = nil
+        return .none
+        
       default:
         return .none
       }
@@ -108,7 +112,7 @@ struct IntroduceView: View {
     }
     .sheet(item: $store.scope(state: \.confirmation, action: \.confirmation)) { store in
       ConfirmationView(store: store)
-        .presentationDetents([.medium])
+        .presentationDetents([.height(200)])
         .presentationDragIndicator(.visible)
     }
   }

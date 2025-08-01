@@ -35,8 +35,10 @@ struct Confirmation {
         return .none
         
       case let .saveNote(value):
-        state.$notes.withLock {
-          $0.append(Note(id: .init(), value: value, date: .now))
+        if !value.isEmpty {
+          state.$notes.withLock {
+            $0.append(Note(id: .init(), value: value, date: .now))
+          }
         }
         return .none
         
