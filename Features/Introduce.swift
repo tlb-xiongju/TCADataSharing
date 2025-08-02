@@ -45,6 +45,7 @@ struct Introduce {
     
     case addBook
     case addAuthor
+    case onDelete(IndexSet)
   }
   
   var body: some Reducer<State, Action> {
@@ -86,6 +87,15 @@ struct Introduce {
             Author(id: "\(id)", name: "Name \(id)")
           }
           .execute(db)
+        }
+        return .none
+        
+      case let .onDelete(idxSet):
+        let items = idxSet.map { state.items[$0] }
+        try? database.write { db in
+          for item in items {
+            try? Author.delete(item.author).execute(db)
+          }
         }
         return .none
         
@@ -144,6 +154,7 @@ struct IntroduceView: View {
                 Text("Books: \(item.books.map(\.title).joined(separator: ", "))").font(.footnote).foregroundStyle(.secondary)
               }
             }
+            .onDelete(perform: { store.send(.onDelete($0)) })
           }
         }
         
