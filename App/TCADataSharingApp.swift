@@ -8,6 +8,7 @@
 import ComposableArchitecture
 import Dependencies
 import SwiftUI
+import SharingGRDB
 
 @main
 struct TCADataSharingApp: App {
@@ -16,9 +17,36 @@ struct TCADataSharingApp: App {
       ._printChanges()
   }
   
+  init() {
+    prepareDependencies {
+      $0.defaultDatabase = try! appDatabase()
+    }
+  }
+  
   var body: some Scene {
     WindowGroup {
       IntroduceView(store: Self.store)
     }
   }
+}
+
+func appDatabase() throws -> any DatabaseWriter {
+  @Dependency(\.context) var context
+  var configuration = Configuration()
+  configuration.foreignKeysEnabled = true
+  
+  let path = URL.documentsDirectory.appending(component: "db.sqlite").path()
+  let database = try DatabasePool(path: path, configuration: configuration)
+  
+  var migrator = DatabaseMigrator()
+  migrator.registerMigration("create Item table") { db in
+    try db.create(table: "items") { table in
+      table.column("id", .integer)
+      table.column("title", .text)
+      table.column("notes", .text)
+    }
+  }
+  try migrator.migrate(database)
+  
+  return database
 }

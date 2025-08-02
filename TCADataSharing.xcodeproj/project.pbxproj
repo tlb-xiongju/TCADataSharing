@@ -10,12 +10,17 @@
 		DF2E0FB62E3CC1A000407AE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF2E0FB22E3CC19F00407AE1 /* Assets.xcassets */; };
 		DF2E0FB82E3CC1A000407AE1 /* TCADataSharingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2E0FB42E3CC19F00407AE1 /* TCADataSharingApp.swift */; };
 		DF2E0FC12E3CC1C000407AE1 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2E0FBC2E3CC1C000407AE1 /* Note.swift */; };
-		DF2E0FC22E3CC1C000407AE1 /* SwiftDataKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2E0FBF2E3CC1C000407AE1 /* SwiftDataKey.swift */; };
 		DF2E0FC32E3CC1C000407AE1 /* APIClientKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2E0FBE2E3CC1C000407AE1 /* APIClientKey.swift */; };
 		DF2E0FC42E3CC1C000407AE1 /* Confirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2E0FB92E3CC1C000407AE1 /* Confirmation.swift */; };
 		DF2E0FC52E3CC1C000407AE1 /* Introduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2E0FBA2E3CC1C000407AE1 /* Introduce.swift */; };
 		DF2E0FC82E3CC22800407AE1 /* Sharing in Frameworks */ = {isa = PBXBuildFile; productRef = DF2E0FC72E3CC22800407AE1 /* Sharing */; };
 		DF2E0FCB2E3CC28C00407AE1 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = DF2E0FCA2E3CC28C00407AE1 /* ComposableArchitecture */; };
+		DF2E0FCF2E3CD0BB00407AE1 /* SharingGRDB in Frameworks */ = {isa = PBXBuildFile; productRef = DF2E0FCE2E3CD0BB00407AE1 /* SharingGRDB */; };
+		DF2E10452E3CD7F900407AE1 /* SharingGRDBCore in Frameworks */ = {isa = PBXBuildFile; productRef = DF2E10442E3CD7F900407AE1 /* SharingGRDBCore */; };
+		DF2E10472E3CD7F900407AE1 /* StructuredQueriesGRDB in Frameworks */ = {isa = PBXBuildFile; productRef = DF2E10462E3CD7F900407AE1 /* StructuredQueriesGRDB */; };
+		DF2E10492E3CD7F900407AE1 /* StructuredQueriesGRDBCore in Frameworks */ = {isa = PBXBuildFile; productRef = DF2E10482E3CD7F900407AE1 /* StructuredQueriesGRDBCore */; };
+		DF2E104B2E3DC8C300407AE1 /* SwiftDataKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2E104A2E3DC8C300407AE1 /* SwiftDataKey.swift */; };
+		DF2E104D2E3DDC4400407AE1 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2E104C2E3DDC4400407AE1 /* Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +31,9 @@
 		DF2E0FBA2E3CC1C000407AE1 /* Introduce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Introduce.swift; sourceTree = "<group>"; };
 		DF2E0FBC2E3CC1C000407AE1 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		DF2E0FBE2E3CC1C000407AE1 /* APIClientKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientKey.swift; sourceTree = "<group>"; };
-		DF2E0FBF2E3CC1C000407AE1 /* SwiftDataKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataKey.swift; sourceTree = "<group>"; };
 		DF2E0FCC2E3CC38A00407AE1 /* TCADataSharing-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "TCADataSharing-Info.plist"; sourceTree = "<group>"; };
+		DF2E104A2E3DC8C300407AE1 /* SwiftDataKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataKey.swift; sourceTree = "<group>"; };
+		DF2E104C2E3DDC4400407AE1 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,8 +41,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF2E10492E3CD7F900407AE1 /* StructuredQueriesGRDBCore in Frameworks */,
+				DF2E10472E3CD7F900407AE1 /* StructuredQueriesGRDB in Frameworks */,
 				DF2E0FCB2E3CC28C00407AE1 /* ComposableArchitecture in Frameworks */,
+				DF2E0FCF2E3CD0BB00407AE1 /* SharingGRDB in Frameworks */,
 				DF2E0FC82E3CC22800407AE1 /* Sharing in Frameworks */,
+				DF2E10452E3CD7F900407AE1 /* SharingGRDBCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +61,7 @@
 				DF2E0FBB2E3CC1C000407AE1 /* Features */,
 				DF2E0FBD2E3CC1C000407AE1 /* Models */,
 				DF2E0FC02E3CC1C000407AE1 /* SharingKey */,
+				DF2E10432E3CD7F900407AE1 /* Frameworks */,
 				DF2E0FA52E3CC18F00407AE1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -85,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				DF2E0FBC2E3CC1C000407AE1 /* Note.swift */,
+				DF2E104C2E3DDC4400407AE1 /* Item.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -93,9 +105,16 @@
 			isa = PBXGroup;
 			children = (
 				DF2E0FBE2E3CC1C000407AE1 /* APIClientKey.swift */,
-				DF2E0FBF2E3CC1C000407AE1 /* SwiftDataKey.swift */,
+				DF2E104A2E3DC8C300407AE1 /* SwiftDataKey.swift */,
 			);
 			path = SharingKey;
+			sourceTree = "<group>";
+		};
+		DF2E10432E3CD7F900407AE1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -117,6 +136,10 @@
 			packageProductDependencies = (
 				DF2E0FC72E3CC22800407AE1 /* Sharing */,
 				DF2E0FCA2E3CC28C00407AE1 /* ComposableArchitecture */,
+				DF2E0FCE2E3CD0BB00407AE1 /* SharingGRDB */,
+				DF2E10442E3CD7F900407AE1 /* SharingGRDBCore */,
+				DF2E10462E3CD7F900407AE1 /* StructuredQueriesGRDB */,
+				DF2E10482E3CD7F900407AE1 /* StructuredQueriesGRDBCore */,
 			);
 			productName = TCADataSharing;
 			productReference = DF2E0FA42E3CC18F00407AE1 /* TCADataSharing.app */;
@@ -149,6 +172,7 @@
 			packageReferences = (
 				DF2E0FC62E3CC22800407AE1 /* XCRemoteSwiftPackageReference "swift-sharing" */,
 				DF2E0FC92E3CC28C00407AE1 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				DF2E0FCD2E3CD0BB00407AE1 /* XCRemoteSwiftPackageReference "sharing-grdb" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DF2E0FA52E3CC18F00407AE1 /* Products */;
@@ -177,9 +201,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF2E0FC12E3CC1C000407AE1 /* Note.swift in Sources */,
-				DF2E0FC22E3CC1C000407AE1 /* SwiftDataKey.swift in Sources */,
 				DF2E0FC32E3CC1C000407AE1 /* APIClientKey.swift in Sources */,
 				DF2E0FC42E3CC1C000407AE1 /* Confirmation.swift in Sources */,
+				DF2E104B2E3DC8C300407AE1 /* SwiftDataKey.swift in Sources */,
+				DF2E104D2E3DDC4400407AE1 /* Item.swift in Sources */,
 				DF2E0FC52E3CC1C000407AE1 /* Introduce.swift in Sources */,
 				DF2E0FB82E3CC1A000407AE1 /* TCADataSharingApp.swift in Sources */,
 			);
@@ -411,6 +436,14 @@
 				minimumVersion = 1.21.0;
 			};
 		};
+		DF2E0FCD2E3CD0BB00407AE1 /* XCRemoteSwiftPackageReference "sharing-grdb" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/sharing-grdb.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -423,6 +456,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DF2E0FC92E3CC28C00407AE1 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
+		};
+		DF2E0FCE2E3CD0BB00407AE1 /* SharingGRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2E0FCD2E3CD0BB00407AE1 /* XCRemoteSwiftPackageReference "sharing-grdb" */;
+			productName = SharingGRDB;
+		};
+		DF2E10442E3CD7F900407AE1 /* SharingGRDBCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2E0FCD2E3CD0BB00407AE1 /* XCRemoteSwiftPackageReference "sharing-grdb" */;
+			productName = SharingGRDBCore;
+		};
+		DF2E10462E3CD7F900407AE1 /* StructuredQueriesGRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2E0FCD2E3CD0BB00407AE1 /* XCRemoteSwiftPackageReference "sharing-grdb" */;
+			productName = StructuredQueriesGRDB;
+		};
+		DF2E10482E3CD7F900407AE1 /* StructuredQueriesGRDBCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2E0FCD2E3CD0BB00407AE1 /* XCRemoteSwiftPackageReference "sharing-grdb" */;
+			productName = StructuredQueriesGRDBCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -10,6 +10,9 @@ import Dependencies
 import SwiftUI
 import Sharing
 
+import SharingGRDBCore
+import SharingGRDB
+
 @Reducer
 struct Introduce {
   @ObservableState
@@ -21,8 +24,12 @@ struct Introduce {
     @SharedReader(.api(nil)) var numberDescription: String?
     @Shared(.appStorage("count")) var count = 0
     
+    @SharedReader(.fetch(Items())) var items
+    
     @Presents var confirmation: Confirmation.State?
   }
+  
+  @Dependency(\.defaultDatabase) var database
   
   enum Action: Sendable {
     case onAppear
@@ -35,6 +42,9 @@ struct Introduce {
     
     case confirmButtonTapped
     case confirmation(PresentationAction<Confirmation.Action>)
+    
+    case addItem
+    case deleteItem(IndexSet)
   }
   
   var body: some Reducer<State, Action> {
@@ -53,6 +63,27 @@ struct Introduce {
         
       case .confirmButtonTapped:
         state.confirmation = .init()
+        return .none
+        
+      case .addItem:
+        let id = Int.random(in: 1...999)
+        let newItem = Item(id: id, title: "title \(id)", notes: "notes \(id)")
+        try? database.write({ db in
+          try? Item.insert {
+            newItem
+          }
+          .execute(db)
+        })
+        return .none
+        
+      case let .deleteItem(idxSet):
+        let items = idxSet.map { state.items[$0] }
+        try? database.write({ db in
+          for item in items {
+            try? Item.delete(item).execute(db)
+          }
+        })
+        
         return .none
         
       case let .setCount(number):
@@ -97,15 +128,26 @@ struct IntroduceView: View {
             ForEach(store.notes.sorted(by: { $0.date > $1.date })) { NoteCell(note: $0) }
           }
           
-          Section("SwiftData") {
-            Text("""
-              """)
+          Section("SharingGRDB") {
+            ForEach(store.items) { item in
+              VStack(alignment: .leading) {
+                Text(item.title).font(.body).foregroundStyle(.primary)
+                Text(item.notes).font(.footnote).foregroundStyle(.secondary)
+              }
+            }
+            .onDelete(perform: { store.send(.deleteItem($0)) })
           }
         }
         
-        Button("Confirm") { store.send(.confirmButtonTapped) }
-        .buttonStyle(.bordered)
-        .ignoresSafeArea(.keyboard)
+        HStack {
+          Button("Confirm") { store.send(.confirmButtonTapped) }
+            .buttonStyle(.bordered)
+            .ignoresSafeArea(.keyboard)
+          
+          Button("+ GRDB item") { store.send(.addItem) }
+            .buttonStyle(.bordered)
+            .ignoresSafeArea(.keyboard)
+        }
       }
       .navigationTitle("Sharing")
       .navigationBarTitleDisplayMode(.inline)
