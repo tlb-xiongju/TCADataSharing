@@ -43,8 +43,8 @@ struct Introduce {
     case confirmButtonTapped
     case confirmation(PresentationAction<Confirmation.Action>)
     
-    case addItem
-    case deleteItem(IndexSet)
+    case addBook
+    case addAuthor
   }
   
   var body: some Reducer<State, Action> {
@@ -65,25 +65,28 @@ struct Introduce {
         state.confirmation = .init()
         return .none
         
-      case .addItem:
-        let id = Int.random(in: 1...999)
-        let newItem = Item(id: id, title: "title \(id)", notes: "notes \(id)")
+      case .addBook:
+        let bookid = (Int.random(in: 1...999))
         try? database.write({ db in
-          try? Item.insert {
-            newItem
+          try? Book.insert {
+            Book(
+              id: "\(bookid)",
+              title: "Book \(bookid)",
+              authorID: "\(Int.random(in: 1...3))"
+            )
           }
           .execute(db)
         })
         return .none
         
-      case let .deleteItem(idxSet):
-        let items = idxSet.map { state.items[$0] }
-        try? database.write({ db in
-          for item in items {
-            try? Item.delete(item).execute(db)
+      case .addAuthor:
+        let id = (Int.random(in: 1...3))
+        try? database.write { db in
+          try? Author.insert {
+            Author(id: "\(id)", name: "Name \(id)")
           }
-        })
-        
+          .execute(db)
+        }
         return .none
         
       case let .setCount(number):
@@ -117,6 +120,12 @@ struct IntroduceView: View {
           
           Section("API") {
             Stepper("\(store.count)", value: $store.count.sending(\.setCount))
+            if store.$numberDescription.isLoading {
+              ProgressView()
+            }
+            store.$numberDescription.loadError.map {
+              Text($0.localizedDescription)
+            }
             store.numberDescription.map { Text($0) }
           }
           
@@ -131,22 +140,23 @@ struct IntroduceView: View {
           Section("SharingGRDB") {
             ForEach(store.items) { item in
               VStack(alignment: .leading) {
-                Text(item.title).font(.body).foregroundStyle(.primary)
-                Text(item.notes).font(.footnote).foregroundStyle(.secondary)
+                Text("Author: \(item.author.name)").font(.body).foregroundStyle(.primary)
+                Text("Books: \(item.books.map(\.title).joined(separator: ", "))").font(.footnote).foregroundStyle(.secondary)
               }
             }
-            .onDelete(perform: { store.send(.deleteItem($0)) })
           }
         }
         
         HStack {
           Button("Confirm") { store.send(.confirmButtonTapped) }
             .buttonStyle(.bordered)
-            .ignoresSafeArea(.keyboard)
           
-          Button("+ GRDB item") { store.send(.addItem) }
+          Spacer()
+          
+          Button("+ Book") { store.send(.addBook) }
             .buttonStyle(.bordered)
-            .ignoresSafeArea(.keyboard)
+          Button("+ Author") { store.send(.addAuthor) }
+            .buttonStyle(.bordered)
         }
       }
       .navigationTitle("Sharing")

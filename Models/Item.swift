@@ -10,14 +10,31 @@ import SharingGRDBCore
 import SharingGRDB
 
 @Table
+struct Book: Equatable, Identifiable {
+  let id: String
+  let title: String
+  let authorID: String
+}
+
+@Table
+struct Author: Equatable, Identifiable {
+  let id: String
+  var name: String
+}
+
 struct Item: Equatable, Identifiable {
-  let id: Int
-  var title = ""
-  var notes = ""
+  var id: String { author.id }
+  let author: Author
+  let books: [Book]
 }
 
 struct Items: FetchKeyRequest {
   func fetch(_ db: Database) throws -> [Item] {
-    try Item.all.fetchAll(db)
+    let authors = try Author.all.fetchAll(db)
+    let books = try Book.all.fetchAll(db)
+    let grouped = Dictionary(grouping: books, by: \.authorID)
+    return authors.map { author in
+      Item(author: author, books: grouped[author.id] ?? [])
+    }
   }
 }

@@ -31,7 +31,6 @@ struct TCADataSharingApp: App {
 }
 
 func appDatabase() throws -> any DatabaseWriter {
-  @Dependency(\.context) var context
   var configuration = Configuration()
   configuration.foreignKeysEnabled = true
   
@@ -39,11 +38,16 @@ func appDatabase() throws -> any DatabaseWriter {
   let database = try DatabasePool(path: path, configuration: configuration)
   
   var migrator = DatabaseMigrator()
-  migrator.registerMigration("create Item table") { db in
-    try db.create(table: "items") { table in
-      table.column("id", .integer)
+  migrator.registerMigration("create Book table") { db in
+    try db.create(table: "authors") { table in
+      table.column("id", .text).primaryKey()
+      table.column("name", .text)
+    }
+    try db.create(table: "books") { table in
+      table.column("id", .text).primaryKey()
       table.column("title", .text)
-      table.column("notes", .text)
+      table.column("authorID", .text)
+        .references("authors", onDelete: .cascade)
     }
   }
   try migrator.migrate(database)
