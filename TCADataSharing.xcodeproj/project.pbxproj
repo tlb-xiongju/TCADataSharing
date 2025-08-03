@@ -23,6 +23,7 @@
 		DF2E104D2E3DDC4400407AE1 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2E104C2E3DDC4400407AE1 /* Item.swift */; };
 		DFF540572E3EDE77000B1EF2 /* SwiftDataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF540562E3EDE77000B1EF2 /* SwiftDataClient.swift */; };
 		DFF5405A2E3EF39F000B1EF2 /* FamilyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF540592E3EF39F000B1EF2 /* FamilyControl.swift */; };
+		DFF540622E3F22C4000B1EF2 /* TCADataSharing-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFF540602E3F22C4000B1EF2 /* TCADataSharing-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,12 +34,12 @@
 		DF2E0FBA2E3CC1C000407AE1 /* Introduce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Introduce.swift; sourceTree = "<group>"; };
 		DF2E0FBC2E3CC1C000407AE1 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		DF2E0FBE2E3CC1C000407AE1 /* APIClientKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientKey.swift; sourceTree = "<group>"; };
-		DF2E0FCC2E3CC38A00407AE1 /* TCADataSharing-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "TCADataSharing-Info.plist"; sourceTree = "<group>"; };
 		DF2E104A2E3DC8C300407AE1 /* SwiftDataKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataKey.swift; sourceTree = "<group>"; };
 		DF2E104C2E3DDC4400407AE1 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		DFF540562E3EDE77000B1EF2 /* SwiftDataClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataClient.swift; sourceTree = "<group>"; };
 		DFF540582E3EF2B5000B1EF2 /* TCADataSharingDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TCADataSharingDebug.entitlements; sourceTree = "<group>"; };
 		DFF540592E3EF39F000B1EF2 /* FamilyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyControl.swift; sourceTree = "<group>"; };
+		DFF540602E3F22C4000B1EF2 /* TCADataSharing-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TCADataSharing-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,11 +64,11 @@
 			children = (
 				DFF540582E3EF2B5000B1EF2 /* TCADataSharingDebug.entitlements */,
 				DFF540552E3EDE63000B1EF2 /* Client */,
-				DF2E0FCC2E3CC38A00407AE1 /* TCADataSharing-Info.plist */,
 				DF2E0FB52E3CC19F00407AE1 /* App */,
 				DF2E0FBB2E3CC1C000407AE1 /* Features */,
 				DF2E0FBD2E3CC1C000407AE1 /* Models */,
 				DF2E0FC02E3CC1C000407AE1 /* SharingKey */,
+				DFF540612E3F22C4000B1EF2 /* SupportingFiles */,
 				DF2E10432E3CD7F900407AE1 /* Frameworks */,
 				DF2E0FA52E3CC18F00407AE1 /* Products */,
 			);
@@ -131,6 +132,14 @@
 				DFF540592E3EF39F000B1EF2 /* FamilyControl.swift */,
 			);
 			path = Client;
+			sourceTree = "<group>";
+		};
+		DFF540612E3F22C4000B1EF2 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				DFF540602E3F22C4000B1EF2 /* TCADataSharing-Info.plist */,
+			);
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,6 +214,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFF540622E3F22C4000B1EF2 /* TCADataSharing-Info.plist in Resources */,
 				DF2E0FB62E3CC1A000407AE1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,7 +374,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "TCADataSharing-Info.plist";
+				INFOPLIST_FILE = "SupportingFiles/TCADataSharing-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -395,7 +405,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "TCADataSharing-Info.plist";
+				INFOPLIST_FILE = "SupportingFiles/TCADataSharing-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
