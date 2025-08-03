@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import Dependencies
+import FamilyControls
 import SwiftUI
 import Sharing
 
@@ -26,10 +27,17 @@ struct Introduce {
     
     @SharedReader(.fetch(Items())) var items
     
+    @SharedReader(.lockItem()) var lockItems: [LockItem] = []
+    
     @Presents var confirmation: Confirmation.State?
+    
+    var appPickerFlag = false
+    var selection = FamilyActivitySelection(includeEntireCategory: false)
   }
   
   @Dependency(\.defaultDatabase) var database
+  @Dependency(\.swiftDataClient) var swiftDataClient
+  @Dependency(\.familyControl) var familyControl
   
   enum Action: Sendable {
     case onAppear
@@ -46,13 +54,29 @@ struct Introduce {
     case addBook
     case addAuthor
     case onDelete(IndexSet)
+    
+    case showAppPicker(Bool)
+    case setSelection(FamilyActivitySelection)
+    case clearSwiftData
   }
   
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
       case .onAppear:
-        return .none
+        return .run { send in
+          switch await familyControl.status() {
+          case .approved: break
+          case .notDetermined, .denied:
+            do {
+              try await familyControl.request(.individual)
+            } catch {
+              return
+            }
+          @unknown default:
+            break
+          }
+        }
         
       case let .setIsIntroduced(flg):
         state.$isIntroduced.withLock { $0 = flg }
@@ -108,6 +132,32 @@ struct Introduce {
         state.confirmation = nil
         return .none
         
+      case let .showAppPicker(flg):
+        state.appPickerFlag = flg
+        return .none
+        
+      case let .setSelection(selection):
+        guard state.selection != selection else { return .none }
+        print("setSelection: \(selection.applicationTokens)")
+        state.selection = selection
+        let items = selection.applicationTokens.compactMap { token -> LockItem? in
+          if state.lockItems.map(\.token).contains(token) { return nil }
+          return LockItem(id: .init(), token: token)
+        }
+        
+        return .run { [items] send in
+          do {
+            try await swiftDataClient.add(items)
+          } catch {
+            print("setSelection error: \(error)")
+          }
+        }
+        
+      case .clearSwiftData:
+        return .run { send in
+          try? await swiftDataClient.clear()
+        }
+        
       default:
         return .none
       }
@@ -156,23 +206,43 @@ struct IntroduceView: View {
             }
             .onDelete(perform: { store.send(.onDelete($0)) })
           }
+          
+          Section("SwiftData") {
+            ForEach(store.lockItems) {
+              Label($0.token).labelStyle(.titleAndIcon)
+            }
+          }
         }
         
-        HStack {
-          Button("Confirm") { store.send(.confirmButtonTapped) }
-            .buttonStyle(.bordered)
+        VStack {
+          HStack {
+            Button("Select App") { store.send(.showAppPicker(true)) }
+              .familyActivityPicker(
+                isPresented: $store.appPickerFlag.sending(\.showAppPicker),
+                selection: $store.selection.sending(\.setSelection)
+              )
+            Button("Clear") { store.send(.clearSwiftData) }
+          }
           
-          Spacer()
-          
-          Button("+ Book") { store.send(.addBook) }
-            .buttonStyle(.bordered)
-          Button("+ Author") { store.send(.addAuthor) }
-            .buttonStyle(.bordered)
+          HStack {
+            Button("Confirm") { store.send(.confirmButtonTapped) }
+              .buttonStyle(.bordered)
+            
+            Spacer()
+            
+            Button("+ Book") { store.send(.addBook) }
+              .buttonStyle(.bordered)
+            Divider().frame(height: 12)
+            Button("+ Author") { store.send(.addAuthor) }
+              .buttonStyle(.bordered)
+          }
         }
+        .padding(.horizontal)
       }
       .navigationTitle("Sharing")
       .navigationBarTitleDisplayMode(.inline)
     }
+    .onAppear(perform: { store.send(.onAppear) })
     .sheet(item: $store.scope(state: \.confirmation, action: \.confirmation)) { store in
       ConfirmationView(store: store)
         .presentationDetents([.height(200)])

@@ -21,6 +21,8 @@
 		DF2E10492E3CD7F900407AE1 /* StructuredQueriesGRDBCore in Frameworks */ = {isa = PBXBuildFile; productRef = DF2E10482E3CD7F900407AE1 /* StructuredQueriesGRDBCore */; };
 		DF2E104B2E3DC8C300407AE1 /* SwiftDataKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2E104A2E3DC8C300407AE1 /* SwiftDataKey.swift */; };
 		DF2E104D2E3DDC4400407AE1 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2E104C2E3DDC4400407AE1 /* Item.swift */; };
+		DFF540572E3EDE77000B1EF2 /* SwiftDataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF540562E3EDE77000B1EF2 /* SwiftDataClient.swift */; };
+		DFF5405A2E3EF39F000B1EF2 /* FamilyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF540592E3EF39F000B1EF2 /* FamilyControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,9 @@
 		DF2E0FCC2E3CC38A00407AE1 /* TCADataSharing-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "TCADataSharing-Info.plist"; sourceTree = "<group>"; };
 		DF2E104A2E3DC8C300407AE1 /* SwiftDataKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataKey.swift; sourceTree = "<group>"; };
 		DF2E104C2E3DDC4400407AE1 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		DFF540562E3EDE77000B1EF2 /* SwiftDataClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataClient.swift; sourceTree = "<group>"; };
+		DFF540582E3EF2B5000B1EF2 /* TCADataSharingDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TCADataSharingDebug.entitlements; sourceTree = "<group>"; };
+		DFF540592E3EF39F000B1EF2 /* FamilyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +61,8 @@
 		DF2E0F9B2E3CC18F00407AE1 = {
 			isa = PBXGroup;
 			children = (
+				DFF540582E3EF2B5000B1EF2 /* TCADataSharingDebug.entitlements */,
+				DFF540552E3EDE63000B1EF2 /* Client */,
 				DF2E0FCC2E3CC38A00407AE1 /* TCADataSharing-Info.plist */,
 				DF2E0FB52E3CC19F00407AE1 /* App */,
 				DF2E0FBB2E3CC1C000407AE1 /* Features */,
@@ -115,6 +122,15 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DFF540552E3EDE63000B1EF2 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				DFF540562E3EDE77000B1EF2 /* SwiftDataClient.swift */,
+				DFF540592E3EF39F000B1EF2 /* FamilyControl.swift */,
+			);
+			path = Client;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,12 +216,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFF5405A2E3EF39F000B1EF2 /* FamilyControl.swift in Sources */,
 				DF2E0FC12E3CC1C000407AE1 /* Note.swift in Sources */,
 				DF2E0FC32E3CC1C000407AE1 /* APIClientKey.swift in Sources */,
 				DF2E0FC42E3CC1C000407AE1 /* Confirmation.swift in Sources */,
 				DF2E104B2E3DC8C300407AE1 /* SwiftDataKey.swift in Sources */,
 				DF2E104D2E3DDC4400407AE1 /* Item.swift in Sources */,
 				DF2E0FC52E3CC1C000407AE1 /* Introduce.swift in Sources */,
+				DFF540572E3EDE77000B1EF2 /* SwiftDataClient.swift in Sources */,
 				DF2E0FB82E3CC1A000407AE1 /* TCADataSharingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,6 +357,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TCADataSharingDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
